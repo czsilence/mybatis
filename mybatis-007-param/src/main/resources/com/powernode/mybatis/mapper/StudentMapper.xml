@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.powernode.mybatis.mapper.StudentMapper">
+    <!--
+        parameterType属性的作用：
+            告诉mybatis框架，这个参数类型是什么类型。
+            mybatis框架自身带有类型推断机制，所以大部分情况下parameterType属性都是可以省略不写的。
+            SQL语句最终是这样的：select * from t_student where ?
+            JDBC给？传值
+            ps.setXxx(1,1L)
+            mybatis底层到底调用哪个方法，取决于parameterType的属性的值。
+            parameterType="java.lang.Long"可以省率成parameterType="Long"
+    -->
+        <select id="selectById" resultType="student" parameterType="java.lang.Long">
+            select * from t_student where id=#{id}
+        </select>
+
+
+    <select id="selectByName" resultType="student" parameterType="String">
+        select * from t_student where name=#{name}
+    </select>
+
+
+    <select id="selectByBirth" resultType="student" parameterType="Date">
+        select * from t_student where birth=#{birth}
+    </select>
+
+
+
+    <select id="selectBySex" resultType="student">
+        select * from t_student where sex=#{sex}
+    </select>
+
+
+    <insert id="insertStudentByMap">
+        insert into t_student values(null,#{姓名},#{年龄},#{身高},#{生日},#{性别})
+    </insert>
+
+
+    <select id="selectByNameAndSex" resultType="student">
+        <!--select * from t_student where name=#{arg0} and sex=#{arg1}-->
+        select * from t_student where name=#{param1} and sex=#{param2}
+    </select>
+
+
+    <select id="selectByNameAndSex2" resultType="student">
+
+        select * from t_student where name=#{name} and sex=#{sex}
+    </select>
+
+</mapper>
